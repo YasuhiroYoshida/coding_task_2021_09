@@ -1,0 +1,34 @@
+<h1>Sizes#new</h1>
+
+<div>
+  <%= form_with model: @size, url: sizes_convert_path, method: :get do |f| %>
+    <div>
+      <%= f.label :starting_locale, "Starting locale:" %>
+      <%= f.select(:starting_locale, options_for_select(Size::LOCALES, selected: @size.starting_locale)) %>
+    </div>
+    <div>
+      <%= f.label :starting_locale_size, "Size:" %>
+      <%= f.text_field :starting_locale_size, value: @size.starting_locale_size %>
+    </div>
+    <div>
+      <%= f.label :target_locale, "Target locale:" %>
+      <%= f.select(:target_locale, options_for_select(Size::LOCALES, selected: @size.target_locale)) %>
+    </div>
+    <div>
+      <%= f.submit "Convert" %>
+    </div>
+  <% end %>
+</div>
+
+<div>
+  <% if @size %>
+    <p>Results:</p>
+    <p>Starting locale: <%= @size.starting_locale %></p>
+    <p>Size in starting locale: <%= @size.starting_locale_size %></p>
+    <p>Target locale: <%= @size.target_locale %></p>
+    <p>Size in target locale: <%= @size.target_locale_size %></p>
+    <% @size.errors.full_messages.each_with_index do |error, i| %>
+      <p>Error <%= i %>: <%= error %></p>
+    <% end %>
+  <% end %>
+</div>
