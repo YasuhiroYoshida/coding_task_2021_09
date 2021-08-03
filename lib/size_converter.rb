@@ -1,5 +1,4 @@
 #! /usr/bin/env ruby
-# frozen_string_literal: true
 #
 # Task #2-1 - Create a rails app using the program in Task 1
 # One way to check this is to spin up this rails app
@@ -18,8 +17,8 @@
 #   }
 # }
 #
-require 'matrix'
-require 'pry'
+require "matrix"
+require "pry"
 
 module SizeConverter
   def self.included(base)
@@ -44,19 +43,19 @@ module SizeConverter
     if vetical_index && horizontal_index
       matrix[vetical_index, horizontal_index]
     else
-      'N/A'
+      "N/A"
     end
   end
 
   private def sizes(locale)
     case locale
-    when 'UK' then UK_SIZES
-    when 'US' then US_SIZES
-    when 'FR' then FR_SIZES
-    when 'IT' then IT_SIZES
-    when 'JA' then JA_SIZES
-    when 'AU' then AU_SIZES
-    when 'ALPHA' then ALPHA_SIZES
+    when "UK" then UK_SIZES
+    when "US" then US_SIZES
+    when "FR" then FR_SIZES
+    when "IT" then IT_SIZES
+    when "JA" then JA_SIZES
+    when "AU" then AU_SIZES
+    when "ALPHA" then ALPHA_SIZES
     else; []
     end
   end

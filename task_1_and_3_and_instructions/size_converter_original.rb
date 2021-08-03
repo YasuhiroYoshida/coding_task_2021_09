@@ -1,5 +1,5 @@
 #! /usr/bin/env ruby
-# frozen_string_literal: true
+
 #
 # Task #1 - Write some ruby code to do the conversion
 # One way to check this is to spin up irb, specifying this file like this:
@@ -7,7 +7,7 @@
 # And then call find_target_locale_size with artuments like this:
 #   SizeConverterOriginal.find_target_locale_size("UK", "22", "US")
 #
-require 'matrix'
+require "matrix"
 
 module SizeConverterOriginal
   UK_SIZES    = %w[2 4 6 8 10 12 14 16 18 20 22 24 26].freeze
@@ -26,19 +26,19 @@ module SizeConverterOriginal
     if vetical_index && horizontal_index
       matrix[vetical_index, horizontal_index]
     else
-      'N/A'
+      "N/A"
     end
   end
 
   private def sizes(locale)
     case locale
-    when 'UK' then UK_SIZES
-    when 'US' then US_SIZES
-    when 'FR' then FR_SIZES
-    when 'IT' then IT_SIZES
-    when 'JA' then JA_SIZES
-    when 'AU' then AU_SIZES
-    when 'ALPHA' then ALPHA_SIZES
+    when "UK" then UK_SIZES
+    when "US" then US_SIZES
+    when "FR" then FR_SIZES
+    when "IT" then IT_SIZES
+    when "JA" then JA_SIZES
+    when "AU" then AU_SIZES
+    when "ALPHA" then ALPHA_SIZES
     else; []
     end
   end

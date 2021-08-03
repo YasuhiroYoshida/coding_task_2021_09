@@ -1,7 +1,5 @@
-# frozen_string_literal: true
-
-require 'matrix'
-require 'size_converter'
+require "matrix"
+require "size_converter"
 
 class Size
   include SizeConverter
@@ -9,7 +7,7 @@ class Size
 
   validates :starting_locale_size, format: {
     with: /\A([0-9]{1,2}|XXXS|XXS|XS|S|M|L|XL|XXL|XXXL)\z/,
-    message: 'must be a one or two-digit number, XXXS, XXS, XS, S, M, L, XL, XXL, and XXXL'
+    message: "must be a one or two-digit number, XXXS, XXS, XS, S, M, L, XL, XXL, and XXXL"
   }
 
   def initialize(starting_locale: nil, starting_locale_size: nil, target_locale: nil)
