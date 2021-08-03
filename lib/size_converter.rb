@@ -1,6 +1,23 @@
 #! /usr/bin/env ruby
 # frozen_string_literal: true
-
+#
+# Task #2-1 - Create a rails app using the program in Task 1
+# One way to check this is to spin up this rails app
+# and access localhost:3000 on browser as usual.
+# And enter "Starting locale" "Size" "Target locale" and click "Convert."
+#
+# Task #2-2 - Create an API using the program in Task 1
+# One way to check this is to spin up this rails app
+# and access localhost:3000/sizes/convert using tools like curl or Postman.
+# Parameters have to be manually specified in this manner:
+# {
+#   "size": {
+#     "starting_locale": "UK",
+#     "starting_locale_size": "22",
+#     "target_locale": "US"
+#   }
+# }
+#
 require 'matrix'
 require 'pry'
 
