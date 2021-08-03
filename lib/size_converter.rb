@@ -18,7 +18,6 @@
 # }
 #
 require "matrix"
-require "pry"
 
 module SizeConverter
   def self.included(base)
