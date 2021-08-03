@@ -6,14 +6,17 @@ RSpec.describe 'Api::V1::Sizes', type: :request do
   describe 'GET /convert' do
     context 'when params are valid' do
       context 'and a matching size exists in the target locale' do
-        it 'returns the matching size' do
-          params = {
+        let(:params) do
+          {
             size: {
               starting_locale: 'UK',
               starting_locale_size: '22',
               target_locale: 'US'
             }
           }
+        end
+
+        it 'returns the matching size' do
           get api_v1_sizes_convert_path, params: params
 
           expect(response).to have_http_status(200)
@@ -22,14 +25,17 @@ RSpec.describe 'Api::V1::Sizes', type: :request do
       end
 
       context 'but a matching size does not exist in the target locale' do
-        it 'returns N/A' do
-          params = {
+        let(:params) do
+          {
             size: {
               starting_locale: 'UK',
               starting_locale_size: '99',
               target_locale: 'US'
             }
           }
+        end
+
+        it 'returns N/A' do
           get api_v1_sizes_convert_path, params: params
 
           expect(response).to have_http_status(200)
@@ -37,22 +43,46 @@ RSpec.describe 'Api::V1::Sizes', type: :request do
         end
       end
     end
-  end
 
-  context 'when params are invalid' do
-    it 'returns error messages' do
-      params = {
-        size: {
-          starting_locale: 'UK',
-          starting_locale_size: '',
-          target_locale: 'US'
-        }
-      }
-      get api_v1_sizes_convert_path, params: params
+    context 'when params are invalid' do
+      context 'with starting_locale_size blank' do
+        let(:params) do
+          {
+            size: {
+              starting_locale: 'UK',
+              starting_locale_size: '',
+              target_locale: 'US'
+            }
+          }
+        end
 
-      expect(response).to have_http_status(422)
-      expect(JSON.parse(response.body)).to eq({ 'messages' => ["Starting locale size can't be blank",
-                                                               'Starting locale size is not a number'] })
+        it 'returns error messages' do
+          get api_v1_sizes_convert_path, params: params
+
+          expect(response).to have_http_status(422)
+          expect(JSON.parse(response.body)).to eq({ 'messages' => ['Starting locale size must be a one or two-digit number, XXXS, XXS, XS, S, M, L, XL, XXL, and XXXL'] })
+        end
+      end
+
+
+      context 'with starting_locale_size not in use' do
+        let(:params) do
+          {
+            size: {
+              starting_locale: 'UK',
+              starting_locale_size: 'XXXXL',
+              target_locale: 'US'
+            }
+          }
+        end
+
+        it 'returns error messages' do
+          get api_v1_sizes_convert_path, params: params
+
+          expect(response).to have_http_status(422)
+          expect(JSON.parse(response.body)).to eq({ 'messages' => ['Starting locale size must be a one or two-digit number, XXXS, XXS, XS, S, M, L, XL, XXL, and XXXL'] })
+        end
+      end
     end
   end
 end

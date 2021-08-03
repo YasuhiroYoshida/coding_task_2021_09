@@ -7,7 +7,10 @@ class Size
   include SizeConverter
   include ActiveModel::Validations
 
-  validates :starting_locale_size, presence: true, numericality: { only_integer: true }
+  validates :starting_locale_size, format: {
+    with: /\A([0-9]{1,2}|XXXS|XXS|XS|S|M|L|XL|XXL|XXXL)\z/,
+    message: 'must be a one or two-digit number, XXXS, XXS, XS, S, M, L, XL, XXL, and XXXL'
+  }
 
   def initialize(starting_locale: nil, starting_locale_size: nil, target_locale: nil)
     self.starting_locale = starting_locale

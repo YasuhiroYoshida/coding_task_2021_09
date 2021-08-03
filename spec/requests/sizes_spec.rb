@@ -65,37 +65,69 @@ RSpec.describe 'Sizes', type: :request do
         end
       end
     end
-  end
 
-  context 'when params are invalid' do
-    let(:params) do
-      {
-        size: {
-          starting_locale: 'UK',
-          starting_locale_size: '',
-          target_locale: 'US'
-        }
-      }
-    end
-    let(:expected_size) do
-      Size.new.tap do |s|
-        s.starting_locale = params[:size][:starting_locale]
-        s.starting_locale_size = params[:size][:starting_locale_size]
-        s.target_locale = params[:size][:target_locale]
-        s.target_locale_size = nil
+    context 'when params are invalid' do
+      context 'with starting_locale_size blank' do
+        let(:params) do
+          {
+            size: {
+              starting_locale: 'UK',
+              starting_locale_size: '',
+              target_locale: 'US'
+            }
+          }
+        end
+        let(:expected_size) do
+          Size.new.tap do |s|
+            s.starting_locale = params[:size][:starting_locale]
+            s.starting_locale_size = params[:size][:starting_locale_size]
+            s.target_locale = params[:size][:target_locale]
+            s.target_locale_size = nil
+          end
+        end
+
+        it 'returns error messages without any value set to target_locale_size' do
+          get api_v1_sizes_convert_path, params: params
+
+          expect(response).to have_http_status(422)
+          expect(assigns(:size).starting_locale).to eq(expected_size.starting_locale)
+          expect(assigns(:size).starting_locale_size).to eq(expected_size.starting_locale_size)
+          expect(assigns(:size).target_locale).to eq(expected_size.target_locale)
+          expect(assigns(:size).target_locale_size).to eq(expected_size.target_locale_size)
+          expect(assigns(:size).errors.full_messages).to eq(['Starting locale size must be a one or two-digit number, XXXS, XXS, XS, S, M, L, XL, XXL, and XXXL'])
+        end
       end
-    end
 
-    it 'returns error messages without any value set to target_locale_size' do
-      get api_v1_sizes_convert_path, params: params
+      context 'with starting_locale_size not in use' do
+        let(:params) do
+          {
+            size: {
+              starting_locale: 'UK',
+              starting_locale_size: 'XXXXL',
+              target_locale: 'US'
+            }
+          }
+        end
+        let(:expected_size) do
+          Size.new.tap do |s|
+            s.starting_locale = params[:size][:starting_locale]
+            s.starting_locale_size = params[:size][:starting_locale_size]
+            s.target_locale = params[:size][:target_locale]
+            s.target_locale_size = nil
+          end
+        end
 
-      expect(response).to have_http_status(422)
-      expect(assigns(:size).starting_locale).to eq(expected_size.starting_locale)
-      expect(assigns(:size).starting_locale_size).to eq(expected_size.starting_locale_size)
-      expect(assigns(:size).target_locale).to eq(expected_size.target_locale)
-      expect(assigns(:size).target_locale_size).to eq(expected_size.target_locale_size)
-      expect(assigns(:size).errors.full_messages).to eq(['Starting locale size can\'t be blank',
-                                                         'Starting locale size is not a number'])
+        it 'returns error messages without any value set to target_locale_size' do
+          get api_v1_sizes_convert_path, params: params
+
+          expect(response).to have_http_status(422)
+          expect(assigns(:size).starting_locale).to eq(expected_size.starting_locale)
+          expect(assigns(:size).starting_locale_size).to eq(expected_size.starting_locale_size)
+          expect(assigns(:size).target_locale).to eq(expected_size.target_locale)
+          expect(assigns(:size).target_locale_size).to eq(expected_size.target_locale_size)
+          expect(assigns(:size).errors.full_messages).to eq(['Starting locale size must be a one or two-digit number, XXXS, XXS, XS, S, M, L, XL, XXL, and XXXL'])
+        end
+      end
     end
   end
 end
