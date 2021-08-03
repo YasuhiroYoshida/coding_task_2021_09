@@ -1,21 +1,29 @@
 <h1>Sizes#new</h1>
 
-<div>
+<div style='width: 300px;'>
   <%= form_with model: @size, url: sizes_convert_path, method: :get do |f| %>
     <div>
-      <%= f.label :starting_locale, "Starting locale:" %>
-      <%= f.select(:starting_locale, options_for_select(Size::LOCALES, selected: @size.starting_locale)) %>
+      <p>
+        <%= f.label :starting_locale, 'Starting locale:' %><br>
+        <%= f.select(:starting_locale, options_for_select(Size::LOCALES, selected: @size.starting_locale), {}, { style: 'width:100%' }) %>
+      </p>
     </div>
     <div>
-      <%= f.label :starting_locale_size, "Size:" %>
-      <%= f.text_field :starting_locale_size, value: @size.starting_locale_size %>
+      <p>
+        <%= f.label :starting_locale_size, 'Size:' %><br>
+        <%= f.text_field :starting_locale_size, value: @size&.starting_locale_size, style: 'width: 97%' %>
+      </p>
     </div>
     <div>
-      <%= f.label :target_locale, "Target locale:" %>
-      <%= f.select(:target_locale, options_for_select(Size::LOCALES, selected: @size.target_locale)) %>
+      <p>
+        <%= f.label :target_locale, 'Target locale:' %><br>
+        <%= f.select(:target_locale, options_for_select(Size::LOCALES, selected: @size.target_locale), {}, { style: 'width:100%' }) %>
+      </p>
     </div>
     <div>
-      <%= f.submit "Convert" %>
+      <p style='text-align: center; margin: 2em 0 3em 0;'>
+        <%= f.submit 'Convert', style: 'width: 300px' %>
+      </p>
     </div>
   <% end %>
 </div>
