@@ -27,7 +27,7 @@
     <p>Size in starting locale: <%= @size.starting_locale_size %></p>
     <p>Target locale: <%= @size.target_locale %></p>
     <p>Size in target locale: <%= @size.target_locale_size %></p>
-    <% @size.errors.full_messages.each_with_index do |error, i| %>
+    <% @size.errors.full_messages.each.with_index(1) do |error, i| %>
       <p>Error <%= i %>: <%= error %></p>
     <% end %>
   <% end %>
