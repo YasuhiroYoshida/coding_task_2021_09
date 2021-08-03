@@ -5,8 +5,6 @@ require 'matrix'
 require 'pry'
 
 module SizeConverter
-  extend self
-
   def self.included(base)
     base.class_eval do
       attr_accessor :starting_locale, :starting_locale_size, :target_locale, :target_locale_size
@@ -33,7 +31,7 @@ module SizeConverter
     end
   end
 
-  def sizes(locale)
+  private def sizes(locale)
     case locale
     when 'UK' then UK_SIZES
     when 'US' then US_SIZES
@@ -46,7 +44,9 @@ module SizeConverter
     end
   end
 
-  def matrix
+  private def matrix
     Matrix[UK_SIZES, US_SIZES, FR_SIZES, IT_SIZES, JA_SIZES, AU_SIZES, ALPHA_SIZES]
   end
+
+  module_function :find_target_locale_size, :sizes, :matrix
 end
