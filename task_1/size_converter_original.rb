@@ -1,10 +1,9 @@
 #! /usr/bin/env ruby
-
 #
 # Task #1 - Write some ruby code to do the conversion
-# One way to check this is to spin up irb, specifying this file like this:
-#   irb -r ./size_converter_original.rb
-# And then call find_target_locale_size with artuments like this:
+# One way to check this is to spin up irb, specifying this file. For example:
+#   irb -r ./task_1/size_converter_original.rb
+# And then call find_target_locale_size with artuments. For example:
 #   SizeConverterOriginal.find_target_locale_size("UK", "22", "US")
 #
 require "matrix"

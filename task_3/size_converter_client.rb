@@ -1,9 +1,8 @@
 #! /usr/bin/env ruby
-
 #
-# Task #3 - Write some standalone ruby coderuby code using the API from Task #2
-# One way to check this is to get on CLI and run a command like the following:
-#   ruby ./size_converter_client.rb "UK" "22" "US"
+# Task #3 - Write some standalone ruby code that communicats to the API created in Task #2
+# One way to check this is to keep the API running, get on CLI, and run a command like the following:
+#   ruby ./task_3/size_converter_client.rb "UK" "22" "US"
 #
 require "uri"
 require "net/http"

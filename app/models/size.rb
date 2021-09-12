@@ -1,5 +1,5 @@
 require "matrix"
-require "size_converter"
+require "task_2/size_converter"
 
 class Size
   include SizeConverter
